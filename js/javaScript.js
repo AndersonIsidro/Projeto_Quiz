@@ -79,10 +79,12 @@ function gerarPergunta(maxPerguntas){
  }
 
  $('.resposta').click(function(){
+    if($("#quiz").attr('data-status')!=='travado'){
     //percorrer todas resp e desmarcar  a classe selecionada
     resetaBotoes()
     //add classe selecionada
     $(this).addClass('selecionada')
+    }
  })
  $("#confirm").click(function(){
     //pegar o indice da pergunta
@@ -98,6 +100,8 @@ function gerarPergunta(maxPerguntas){
             if(respCerta == respostaEscolhida){
                 proximaPergunta()
             }else{
+                $('#quiz').attr('data-status','travado')
+                $('#confirm').addClass('oculto')
                 $('#'+respCerta).addClass('correta')
                 $('#'+respostaEscolhida).removeClass('selecionada')
                 $('#'+respostaEscolhida).addClass('errada')
@@ -137,6 +141,10 @@ function gameOver(){
     $('#quiz').addClass('oculto')
     $('#mensagem').html('Game Over!')
     $('#status').removeClass('oculto')
+    $('#confirm').removeClass('oculto')
+    $('#quiz').attr('data-status','ok')
+    
+    
 }
 $('#novoJogo').click(function(){
     newGame()
